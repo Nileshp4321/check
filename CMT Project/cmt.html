@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Content Management Tool</title>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <style>
+    .element {
+      border: 1px solid #ddd;
+      padding: 10px;
+      margin-bottom: 10px;
+    }
+    .element img {
+      max-width: 100%;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="row">
+      <div class="col-md-4">
+        <h2>Elements</h2>
+        <button class="element" draggable="true" ondragstart="drag(event)">
+          Drag Me
+        </button>
+        <div class="element" draggable="true" ondragstart="drag(event)">
+          <p>Text Hello</p>
+        </div>
+        <div class="element" draggable="true" ondragstart="drag(event)">
+          <img src="nilesh.jpg" alt="Image">
+        </div>
+        <div class="element" draggable="true" ondragstart="drag(event)">
+          <video width="320" height="240" controls>
+            <source src="video.mp4" type="video/mp4">
+          </video>
+        </div>
+      </div>
+      <div class="col-md-8">
+        <h2>Workspace</h2>
+        <div class="workspace" ondragover="allowDrop(event)" ondrop="drop(event)">
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    function allowDrop(event) {
+      event.preventDefault();
+    }
+
+    function drag(event) {
+      event.dataTransfer.setData('text/plain', event.target.innerHTML);
+    }
+
+    function drop(event) {
+      event.preventDefault();
+      const data = event.dataTransfer.getData('text/plain');
+      const element = document.createElement('div');
+      element.className = 'element';
+      element.innerHTML = data;
+      event.target.appendChild(element);
+      
+      if (data === 'Drag Me') {
+        performTask();
+      }
+    }
+    
+    function performTask() {
+      alert('Task performed!');
+    }
+  </script>
+</body>
+</html>
